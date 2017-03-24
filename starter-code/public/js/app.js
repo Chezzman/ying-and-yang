@@ -1,9 +1,9 @@
-/* global Game, Player */
+/* global Restaurant, Food */
 
 $(function () {
   console.log('document loaded');
-  console.log('Game:', Game);
-  console.log('Player:', Player);
+  console.log('Restaurant:', Restaurant);
+  console.log('Food:', Food);
   // default screen:
-  Game.controller.index();
+  Restaurant.controller.index();
 });

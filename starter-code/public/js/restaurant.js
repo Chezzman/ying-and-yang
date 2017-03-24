@@ -1,13 +1,13 @@
-// define a globally-available object, which stores all functions related to a Game
+// define a globally-available object, which stores all functions related to a Restaurants
 // Note: this is a singleton, so we are following the convention of giving a singleton an init capital letter.
-var Game = {
+var Restaurant = {
   controller: {
     index: function () {
       var $content = $('#content');
 
-      Game.model.index(
+      Restaurant.model.index(
         function success(data) {
-          var html = Game.view.index(data);
+          var html = Restaurant.view.index(data);
 
           // set the HTML in the content div
           $content.html(html);
@@ -22,7 +22,7 @@ var Game = {
         }
       );
     },
-    show: function (game) {
+    show: function (restaurants) {
       // TODO: implement
     },
     new: function () {
@@ -38,30 +38,30 @@ var Game = {
   // the following object contains methods related to generating the View - ie, the HTML:
   view: {
     // this maps directly to the `index` route (remember the 7 RESTful routes?)
-    index: function (games) {
+    index: function (restaurants) {
       var html = `
-        <h2>Games</h2>
+        <h2>Restaurants</h2>
         <ul>
       `;
 
-      for(var i = 0; i < games.length ; i++) {
+      for(var i = 0; i < restaurants.length ; i++) {
         // TODO: fill this in properly!
         // For example:
-        //   - add buttons to view, edit & delete this game
-        //   - on each button, you can add an `onclick` attribute that calls the relevant method on `Game.controller`
-        html += `<li>${games[i].title}</li>`;
+        //   - add buttons to view, edit & delete this restaurant
+        //   - on each button, you can add an `onclick` attribute that calls the relevant method on `Restaurants.controller`
+        html += `<li>${restaurants[i].title}</li>`;
       }
 
       html += `</ul>`;
 
       return html;
     },
-    // generate the HTML to create a new Game
+    // generate the HTML to create a new Restaurants
     new: function () {
       // TODO: implement
     },
-    // generate the HTML to edit an existing Game
-    edit: function (game) {
+    // generate the HTML to edit an existing Restaurants
+    edit: function (restaurants) {
       // TODO: implement
     }
   },
@@ -75,7 +75,7 @@ var Game = {
       $.ajax({
         method: 'GET',
         dataType: 'json',
-        url: '/games',
+        url: '/restaurants',
         success: success,
         error: error
       });
@@ -84,7 +84,7 @@ var Game = {
       $.ajax({
         method: 'GET',
         dataType: 'json',
-        url: `/games/${id}`,
+        url: `/restaurants/${id}`,
         success: success,
         error: error
       });
@@ -93,7 +93,7 @@ var Game = {
       $.ajax({
         method: 'POST',
         dataType: 'json',
-        url: '/games',
+        url: '/restaurants',
         data: data,
         success: success,
         error: error
@@ -103,7 +103,7 @@ var Game = {
       $.ajax({
         method: 'PUT',
         dataType: 'json',
-        url: `/games/${data.id}`,
+        url: `/restaurants/${data.id}`,
         data: data,
         success: success,
         error: error
@@ -112,7 +112,7 @@ var Game = {
     destroy: function (id, success, error) {
       $.ajax({
         method: 'DELETE',
-        url: `/games/${id}`,
+        url: `/restaurants/${id}`,
         success: success,
         error: error
       });
