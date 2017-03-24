@@ -2,6 +2,6 @@ var Foods = require('../models/food-model');
 
 // Action: create
 
-Foods.makeyoself{cooking};
+//Foods.makeyoself;
 
-module.exports = create;
+//module.exports = create;

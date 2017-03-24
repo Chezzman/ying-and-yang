@@ -4,7 +4,7 @@ require('../models/food-model');
 
 
 // Action: index
-Restaurants
+//Restaurants
 
 
 // Action: create
@@ -15,9 +15,9 @@ Restaurants
 // Action: delete
 
 
-module.exports = {
-  index: ,
-  create: ,
-  update: ,
-  delete:
-}
+//module.exports = {
+  // index: ,
+  // create: ,
+  // update: ,
+  // delete:
+//};
