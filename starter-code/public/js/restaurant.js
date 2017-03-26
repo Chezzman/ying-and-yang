@@ -7,10 +7,16 @@ var Restaurant = {
 
       Restaurant.model.index(
         function success(data) {
-          var html = Restaurant.view.index(data);
+          var indexHtml = Restaurant.view.index(data);
 
           // set the HTML in the content div
-          $content.html(html);
+          $content.html(indexHtml);
+          var $addRestaurant = $('#addRestaurant');
+
+          $addRestaurant.click(function(){
+            Restaurant.controller.new();
+          });
+
         },
         function error() {
           // TODO: what will you do when an error occurs?
@@ -22,12 +28,36 @@ var Restaurant = {
         }
       );
     },
-    show: function (restaurants) {
-      // TODO: implement
-    },
+
     new: function () {
       // TODO: implement
+      var $content = $('#content');
+
+      Restaurant.model.new(
+        function success() {
+          var newHtml = Restaurant.view.new();
+          $content.html(newHtml);
+          var $backToIndex = $('#backToIndex');
+          $backToIndex.click(function(){
+            Restaurant.controller.index();
+          });
+        },
+        function error() {
+          // TODO: what will you do when an error occurs?
+          // Display a message somewhere?
+          // What parameters are passed to this anonymous function?
+          //   - read the jQuery docs
+          //   - use console.log() to confirm
+          // See: https://api.jquery.com/jQuery.ajax/
+        }
+      );
+
     },
+
+    show: function () {
+      // TODO: implement
+    },
+
     edit: function () {
       // TODO: implement
     },
@@ -40,7 +70,7 @@ var Restaurant = {
     // this maps directly to the `index` route (remember the 7 RESTful routes?)
     index: function (restaurants) {
       var html = `
-        <h2>Restaurants</h2>
+        <h1>Restaurants</h1>
         <ul>
       `;
 
@@ -49,22 +79,37 @@ var Restaurant = {
         // For example:
         //   - add buttons to view, edit & delete this restaurant
         //   - on each button, you can add an `onclick` attribute that calls the relevant method on `Restaurants.controller`
-        html += `<li>${restaurants[i].title}</li>`;
+        html += `<a href="/"><li>${restaurants[i].name}</li></a>`;
       }
-
       html += `</ul>`;
+      html += `<button id="addRestaurant">Add Restaurant</button>`;
 
       return html;
     },
-    // generate the HTML to create a new Restaurants
-    new: function () {
+    // generate the HTML to edit an existing Restaurants
+    edit: function () {
       // TODO: implement
     },
-    // generate the HTML to edit an existing Restaurants
-    edit: function (restaurants) {
-      // TODO: implement
+
+    new: function () {
+      var html =
+
+      `<h1>Add Restaurant</h1>
+       <div id="addForm">
+          <form action="/books" method="POST">
+            <input type="text" name="Name" placeholder="Restaurant Name">
+            <input type="text" name="Location" placeholder="Post Code">
+            <input type="text" name="Cuisine" placeholder="Cuisine Style">
+            <input type="hidden" name="userId" value="<%= book.user %>">
+            <button>Add</button>
+          </form>
+          <button id="backToIndex">Cancel</button>
+        </div>`;
+
+      return html;
     }
   },
+
   // the following object contains model-related methods
   // ie AJAX calls to implement the relevant RESTful methods:
   model: {
@@ -76,6 +121,15 @@ var Restaurant = {
         method: 'GET',
         dataType: 'json',
         url: '/restaurants',
+        success: success,
+        error: error
+      });
+    },
+    new: function (success, error) {
+      $.ajax({
+        method: 'GET',
+        dataType: 'json',
+        url: '/restaurants/new',
         success: success,
         error: error
       });
@@ -119,3 +173,5 @@ var Restaurant = {
     }
   }
 };
+
+module.exports = Restaurant;

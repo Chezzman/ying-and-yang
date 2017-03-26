@@ -7,6 +7,15 @@ router.get('/restaurants', function (req, res) {
   // and of course this will be in a separate controller file, as we've done before
   res.json([
     {
+      name: 'name'
+    }
+  ]);
+});
+router.get('/restaurants/new', function (req, res) {
+  // TODO: this is where you'd get your Game data from your database
+  // and of course this will be in a separate controller file, as we've done before
+  res.json([
+    {
       title: 'Crabby Paddies'
     },
     {
@@ -17,5 +26,39 @@ router.get('/restaurants', function (req, res) {
     }
   ]);
 });
+
+router.get('/foods/new', function (req, res) {
+  // TODO: this is where you'd get your Game data from your database
+  // and of course this will be in a separate controller file, as we've done before
+  res.json([
+    {
+      title: 'Crabby Paddies'
+    },
+    {
+      title: 'Bikini bottom'
+    },
+    {
+      title: 'Sea America'
+    }
+  ]);
+});
+
+router.post('/foods', function (req, res) {
+  // TODO: this is where you'd get your Game data from your database
+  // and of course this will be in a separate controller file, as we've done before
+  res.json([
+    {
+      title: 'Crabby Paddies'
+    },
+    {
+      title: 'Bikini bottom'
+    },
+    {
+      title: 'Sea America'
+    }
+  ]);
+});
+//
+// router.get('/food', function)
 
 module.exports = router;
