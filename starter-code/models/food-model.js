@@ -5,12 +5,16 @@ var validationRules = {
     type: String,
     required: true
   },
-  handle: {
+  course: {
+    type: String,
+    required: true
+  },
+  price: {
     type: String,
     required: true
   }
 };
-var PlayerSchema = new Schema(validationRules);
-var Player = mongoose.model('Player', PlayerSchema);
+var FoodSchema = new Schema(validationRules);
+var Food = mongoose.model('Food', FoodSchema);
 
-module.exports = Player;
+module.exports = Food;

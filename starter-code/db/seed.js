@@ -3,13 +3,51 @@ console.warn('NOTE! This is where you will seed your database.');
 console.warn('NOTE! Remember to change Game & Player to your primary & secondary model names... and the comments too!');
 
 var mongoose = require('mongoose');
-var Game = require('../models/game-model');
-var Player = require('../models/player-model');
+var Restaurant = require('../models/restaurant-model');
+var Food = require('../models/food-model');
 var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/sg-webdev4-project2';
 
 function seedData() {
-  console.warn('NOTE! seedData() needs to be implemented');
-  mongoose.connection.close();
+  var food1 = new Food();
+  var food2 = new Food();
+  var restaurant = new Restaurant();
+  var menuSaved = [];
+
+  food1.name = 'Krabby Patty';
+  food1.course = 'Main';
+  food1.price = '$100';
+  food2.name = 'Krusty Krab Pizza';
+  food2.course = 'Main';
+  food2.price = '$50';
+
+  food1.save(function (err, food1Result) {
+    if (err) {
+      console.log('could not add', food1.name ,'to the menu: err:', err);
+      process.exit(1);
+    }
+    menuSaved.push(food1Result);
+    food2.save(function (err, food2Result) {
+      if (err) {
+        console.log('could not add', food2.name ,'to the menu: err:', err);
+        process.exit(1);
+      }
+      menuSaved.push(food2Result);
+      console.log('menuSaved:', menuSaved);
+      restaurant.name = 'Krusty Krab';
+      restaurant.location = 'Bikini Bottom';
+      restaurant.cuisineStyle = 'Underwater American Glory';
+      restaurant.menu.push(menuSaved[0]._id);
+      restaurant.menu.push(menuSaved[1]._id);
+      restaurant.save(function (err, restaurantResult) {
+        if (err) {
+          console.log('could not create restaurant: err:', err);
+          process.exit(1);
+        }
+        console.log('restaurant saved:', restaurantResult);
+        mongoose.connection.close();
+      });
+    });
+  });
 }
 
 function initDb() {
@@ -19,18 +57,18 @@ function initDb() {
       process.exit(1);
     }
     console.log('connected to', mongoose.connection.name);
-    Game.remove({}, function(err) {
+    Restaurant.remove({}, function(err) {
       if (err) {
-        console.log('could not drop Game collection: err:', err);
+        console.log('could not drop restaurant collection: err:', err);
         process.exit(1);
       }
-      console.log('emptied Game collection');
-      Player.remove({}, function(err) {
+      console.log('emptied restaurant collection');
+      Food.remove({}, function(err) {
         if (err) {
-          console.log('could not drop Player collection: err:', err);
+          console.log('could not drop Food collection: err:', err);
           process.exit(1);
         }
-        console.log('emptied Player collection');
+        console.log('emptied Food collection');
         seedData();
       });
     });
