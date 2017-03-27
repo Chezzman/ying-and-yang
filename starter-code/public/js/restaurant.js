@@ -1,5 +1,3 @@
-// define a globally-available object, which stores all functions related to a Restaurants
-// Note: this is a singleton, so we are following the convention of giving a singleton an init capital letter.
 
 var Restaurant = {
   controller: {
@@ -21,12 +19,7 @@ var Restaurant = {
 
         },
         function error() {
-          // TODO: what will you do when an error occurs?
-          // Display a message somewhere?
-          // What parameters are passed to this anonymous function?
-          //   - read the jQuery docs
-          //   - use console.log() to confirm
-          // See: https://api.jquery.com/jQuery.ajax/
+
         }
       );
     },
@@ -45,31 +38,13 @@ var Restaurant = {
           });
         },
         function error() {
-          // TODO: what will you do when an error occurs?
-          // Display a message somewhere?
-          // What parameters are passed to this anonymous function?
-          //   - read the jQuery docs
-          //   - use console.log() to confirm
-          // See: https://api.jquery.com/jQuery.ajax/
+
         }
       );
 
-    },
-
-    show: function () {
-      // TODO: implement
-    },
-
-    edit: function () {
-      // TODO: implement
-    },
-    destroy: function () {
-      // TODO: implement
     }
   },
-  // the following object contains methods related to generating the View - ie, the HTML:
   view: {
-    // this maps directly to the `index` route (remember the 7 RESTful routes?)
     index: function (restaurants) {
       var html = `
         <h1>Restaurants</h1>
@@ -85,7 +60,6 @@ var Restaurant = {
 
       return html;
     },
-
     edit: function () {
       // TODO: implement
     },
@@ -107,15 +81,9 @@ var Restaurant = {
 
       return html;
     }
-
   },
 
-  // the following object contains model-related methods
-  // ie AJAX calls to implement the relevant RESTful methods:
   model: {
-    // this maps to the `index` route
-    // see jQuery docs for `success` and `error` callbacks:
-    //  https://api.jquery.com/jQuery.ajax/
     index: function (success, error) {
       $.ajax({
         method: 'GET',
@@ -172,6 +140,7 @@ var Restaurant = {
       });
     }
   }
+
 };
 
-// module.exports = Restaurant;
+module.exports = Restaurant;
