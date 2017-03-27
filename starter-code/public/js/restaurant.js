@@ -1,9 +1,11 @@
 // define a globally-available object, which stores all functions related to a Restaurants
 // Note: this is a singleton, so we are following the convention of giving a singleton an init capital letter.
+
 var Restaurant = {
   controller: {
     index: function () {
       var $content = $('#content');
+
 
       Restaurant.model.index(
         function success(data) {
@@ -74,19 +76,16 @@ var Restaurant = {
         <ul>
       `;
 
-      for(var i = 0; i < restaurants.length ; i++) {
-        // TODO: fill this in properly!
-        // For example:
-        //   - add buttons to view, edit & delete this restaurant
-        //   - on each button, you can add an `onclick` attribute that calls the relevant method on `Restaurants.controller`
+      for(var i = 0; i < restaurants.length; i++) {
         html += `<a href="/"><li>${restaurants[i].name}</li></a>`;
+        html += `<a href="/"><li>${restaurants[i].course}</li></a>`;
       }
       html += `</ul>`;
       html += `<button id="addRestaurant">Add Restaurant</button>`;
 
       return html;
     },
-    // generate the HTML to edit an existing Restaurants
+
     edit: function () {
       // TODO: implement
     },
@@ -100,7 +99,7 @@ var Restaurant = {
             <input type="text" name="Name" placeholder="Restaurant Name">
             <input type="text" name="Location" placeholder="Post Code">
             <input type="text" name="Cuisine" placeholder="Cuisine Style">
-            <input type="hidden" name="userId" value="<%= book.user %>">
+            <input type="hidden" name="userId" value="<%=  %>">
             <button>Add</button>
           </form>
           <button id="backToIndex">Cancel</button>
@@ -108,6 +107,7 @@ var Restaurant = {
 
       return html;
     }
+
   },
 
   // the following object contains model-related methods
@@ -174,4 +174,4 @@ var Restaurant = {
   }
 };
 
-module.exports = Restaurant;
+// module.exports = Restaurant;

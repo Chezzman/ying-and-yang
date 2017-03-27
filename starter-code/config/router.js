@@ -1,16 +1,26 @@
 var express = require('express');
 var router = express.Router();
+var RestaurantData = require('../models/food-model');
 
 // TODO: fill in your router as required
+
 router.get('/restaurants', function (req, res) {
-  // TODO: this is where you'd get your Game data from your database
-  // and of course this will be in a separate controller file, as we've done before
-  res.json([
-    {
-      name: 'name'
+  RestaurantData.find({}, function (err, restaurants) {
+    if (err) {
+      console.log('Could not get list of restaurants:', err);
+      return;
     }
-  ]);
+    res.json([
+      {
+        name: restaurants[0].name,
+        course: restaurants[0].course
+      }
+    ]);
+    console.log('the restaurants', restaurants);
+  });
 });
+
+
 router.get('/restaurants/new', function (req, res) {
   // TODO: this is where you'd get your Game data from your database
   // and of course this will be in a separate controller file, as we've done before
