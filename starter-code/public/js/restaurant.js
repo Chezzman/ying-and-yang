@@ -6,41 +6,40 @@ var Restaurant = {
       Restaurant.model.index(
         function success(data) {
           var indexHtml = Restaurant.view.index(data);
-
           // set the HTML in the content div
           $content.html(indexHtml);
         },
         function error(err) {
           $('#error-message').html(err.responseJSON.message);
-
-          // TODO: what will you do when an error occurs?
-          // Display a message somewhere?
-          // What parameters are passed to this anonymous function?
-          //   - read the jQuery docs
-          //   - use console.log() to confirm
-          // See: https://api.jquery.com/jQuery.ajax/
         }
       );
     },
 
     new: function () {
-
       var $content = $('#content');
+      var newHtml = Restaurant.view.new();
 
-      Restaurant.model.new(
-           function success() {
-             var newHtml = Restaurant.view.new();
-             $content.html(newHtml);
-
-           },
-           function error(err) {
-             $('#error-message').html(err.responseJSON.message);
-
-           }
-         );
-
+      $content.html(newHtml);
     },
 
+    create: function (form) {
+      var newRestaurant = {
+        name: form.name.value,
+        location: form.location.value,
+        cuisineStyle: form.cuisineStyle.value
+      };
+
+      Restaurant.model.create(
+        newRestaurant,
+        function success() {
+          Restaurant.controller.index();
+        },
+        function error() {
+
+        }
+      );
+
+    },
 
     show: function () {
       // TODO: implement
@@ -56,8 +55,8 @@ var Restaurant = {
           // set the HTML in the content div
           $content.html(showHtml);
         },
-        function error(err) {
-          $('#error-message').html(err.responseJSON.message);
+        function error() {
+          //$('#error-message').html(err.responseJSON.message);
         }
       );
     },
@@ -76,7 +75,7 @@ var Restaurant = {
         },
         function error(err) {
           console.log('ERROR: err:', err);
-          $('#error-message').html(err.responseJSON.message);
+          //$('#error-message').html(err.responseJSON.message);
         }
       );
     },
@@ -114,45 +113,46 @@ var Restaurant = {
       return html;
     },
     edit: function (restaurant) {
-      var html =
+      return `
+        <h1>Edit restaurant</h1>
+        <form name="editRestaurant">
+          <input type="hidden" name="restaurantId" value="${restaurant._id}">
 
-      `<h1>Edit Restaurant</h1>
-       <div id="addForm">
-          <form name"editRestaurant">
-          <label for="nameRes">Name</label>
-            <input id="nameRes" name="Name" value"${restaurant.name}" placeholder="Restaurant Name">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" value="${restaurant.name}">
+          </div>
 
-          <label for="location">Location</location>
-            <input id="location" name="Location" value"${restaurant.location}" placeholder="Post Code">
+          <div>
+            <label for="location">Location</label>
+            <input id="location" name="location" value="${restaurant.location}">
+          </div>
 
-          <label for="cuisine">Cuisine</location>
-            <input  id="cuisine" name="Cuisine" value"${restaurant.cuisineStyle}" placeholder="Cuisine Style">
+          <div>
+            <label for="cuisineStyle">Cuisine style</label>
+            <input id="cuisineStyle" name="cuisineStyle" value="${restaurant.cuisineStyle}">
+          </div>
 
-            <button onclick="Restaurant.controller.update(editRestaurant)">Edit</button>
-          </form>
-          <button onclick="Restaurant.controller.index()" >Cancel</button>
-        </div>`;
-
-      return html;
-
+          <button onclick="Restaurant.controller.update(editRestaurant)" type="button">Update</button>
+          <button onclick="Restaurant.controller.index()" type="button">Cancel</button>
+        </form>
+      `;
     },
 
     new: function () {
-      var html =
+      var newHtml = `
+        <h1>Add Restaurant</h1>
+        <form name="addRestaurant">
+          <input type="text" name="name" placeholder="Restaurant Name">
+          <input type="text" name="location" placeholder="Post Code">
+          <input type="text" name="cuisineStyle" placeholder="Cuisine Style">
+          <input type="hidden" name="RestaurantId" value="<%=  %>">
+          <button onclick="Restaurant.controller.create(addRestaurant)" type="button">Add</button>
+          <button onclick="Restaurant.controller.index()" type="button">Cancel</button>
+        </form>
+      `;
 
-       `<h1>Add Restaurant</h1>
-        <div id="addForm">
-           <form action="/restaurants" method="POST">
-             <input type="text" name="name" placeholder="Restaurant Name">
-             <input type="text" name="location" placeholder="Post Code">
-             <input type="text" name="cuisineStyle" placeholder="Cuisine Style">
-             <input type="hidden" name="RestaurantId" value="<%=  %>">
-             <button onclick="Restaurant.controller.create()">Add</button>
-           </form>
-           <button onclick="Restaurant.controller.index()">Cancel</button>
-         </div>`;
-
-      return html;
+      return newHtml;
     }
 
   },
@@ -162,15 +162,6 @@ var Restaurant = {
         method: 'GET',
         dataType: 'json',
         url: '/restaurants',
-        success: success,
-        error: error
-      });
-    },
-    new: function (success, error) {
-      $.ajax({
-        method: 'GET',
-        dataType: 'json',
-        url: '/restaurants/new',
         success: success,
         error: error
       });
@@ -213,7 +204,4 @@ var Restaurant = {
       });
     }
   }
-
 };
-
-module.exports = Restaurant;
