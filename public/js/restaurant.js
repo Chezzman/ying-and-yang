@@ -106,60 +106,73 @@ var Restaurant = {
   view: {
     index: function (restaurants) {
       var html = `
-        <h1>Restaurants</h1>
+        <p class="header">Restaurants</p>
         <ul>
       `;
 
       for(var i = 0; i < restaurants.length; i++) {
         html += `
         <li>
-          <a href="#" onclick="Restaurant.controller.show('${restaurants[i]._id}')">${restaurants[i].name}</a>
-          <button onclick="Restaurant.controller.destroy('${restaurants[i]._id}')">delete</button>
-          <button onclick="Restaurant.controller.edit('${restaurants[i]._id}')">edit</button>
+          <a href="#" class="link" onclick="Restaurant.controller.show('${restaurants[i]._id}')">${restaurants[i].name}</a>
+          <button class="button" onclick="Restaurant.controller.destroy('${restaurants[i]._id}')">delete</button>
+          <button class="button" onclick="Restaurant.controller.edit('${restaurants[i]._id}')">edit</button>
         </li>`;
       }
       html += `</ul>`;
-      html += `<button onclick="Restaurant.controller.new()">Add Restaurant</button>`;
+      html += `<button class="button" onclick="Restaurant.controller.new()">Add Restaurant</button>`;
 
       return html;
     },
     edit: function (restaurant) {
       return `
-        <h1>Edit restaurant</h1>
+        <h1 class="header">Edit restaurant</h1>
         <form name="editRestaurant">
           <input type="hidden" name="restaurantId" value="${restaurant._id}">
 
           <div>
-            <label for="name">Name</label>
+            <label class="header2" for="name">Name</label>
             <input id="name" name="name" value="${restaurant.name}">
           </div>
 
           <div>
-            <label for="location">Location</label>
+            <label class="header2" for="location">Location</label>
             <input id="location" name="location" value="${restaurant.location}">
           </div>
 
           <div>
-            <label for="cuisineStyle">Cuisine style</label>
+            <label class="header2" for="cuisineStyle">Cuisine style</label>
             <input id="cuisineStyle" name="cuisineStyle" value="${restaurant.cuisineStyle}">
           </div>
 
-          <button onclick="Restaurant.controller.update(editRestaurant)" type="button">Update</button>
-          <button onclick="Restaurant.controller.index()" type="button">Cancel</button>
+          <button class="button" onclick="Restaurant.controller.update(editRestaurant)" type="button">Update</button>
+          <button class="button" onclick="Restaurant.controller.index()" type="button">Cancel</button>
         </form>
       `;
     },
 
     new: function () {
       var newHtml = `
-        <h1>Add Restaurant</h1>
-        <form name="addRestaurant">
-          <input type="text" name="name" placeholder="Restaurant Name">
-          <input type="text" name="location" placeholder="Post Code">
-          <input type="text" name="cuisineStyle" placeholder="Cuisine Style">
-          <button onclick="Restaurant.controller.create(addRestaurant)" type="button">Add</button>
-          <button onclick="Restaurant.controller.index()" type="button">Cancel</button>
-        </form>
+      <h1 class="header">Add Restaurant</h1>
+      <form name="addRestaurant">
+
+        <div>
+          <label class="header2" for="name">Name</label>
+          <input id="name" name="name" placeholder="Restaurant Name">
+        </div>
+
+        <div>
+          <label class="header2" for="location">Location</label>
+          <input id="location" name="location" placeholder="locaion">
+        </div>
+
+        <div>
+          <label class="header2" for="cuisineStyle">Cuisine style</label>
+          <input id="cuisineStyle" name="cuisineStyle" placeholder="Cuisine Style">
+        </div>
+
+        <button class="button" onclick="Restaurant.controller.create(addRestaurant)" type="button">Add</button>
+        <button class="button" onclick="Restaurant.controller.index()" type="button">Cancel</button>
+
       `;
 
       return newHtml;
@@ -167,13 +180,13 @@ var Restaurant = {
 
     show: function(restaurant) {
       var html = `
-        <h2>Show Restaurant</h2>
+        <p class="header">Show Restaurant</h2>
 
         <p><strong>Name:</strong> ${restaurant.name}</p>
         <p><strong>Location:</strong> ${restaurant.location}</p>
         <p><strong>Cuisine Style:</strong> ${restaurant.cuisineStyle}</p>
 
-        <p><strong>Menu:</strong></p>
+        <p class="header"><strong>Menu:</strong></p>
         <ul>
       `;
 
@@ -186,15 +199,15 @@ var Restaurant = {
         `;
       }
       html += `
-        <h3>Add Food</h3>
+        <h3 class="header2" >Add Food To MENU</h3>
         <form name="addFood">
           <input type="text" name="name" placeholder="Food Name">
           <input type="text" name="course" placeholder="Course">
           <input type="text" name="price" placeholder="Price">
           <input type="hidden" name="restaurantId" value="${restaurant._id}">
-          <button onclick="Food.controller.create(addFood)" type="button">Add</button>
+          <button class="button" onclick="Food.controller.create(addFood)" type="button">Add</button>
         </form>
-        <button onclick="Restaurant.controller.index()" type="button">Back</button>
+        <button class="button" onclick="Restaurant.controller.index()" type="button">Back</button>
       `;
       return html;
     }
