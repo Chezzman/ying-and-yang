@@ -114,8 +114,8 @@ var Restaurant = {
         html += `
         <li>
           <a href="#" class="link" onclick="Restaurant.controller.show('${restaurants[i]._id}')">${restaurants[i].name}</a>
-          <button class="button" onclick="Restaurant.controller.destroy('${restaurants[i]._id}')">delete</button>
-          <button class="button" onclick="Restaurant.controller.edit('${restaurants[i]._id}')">edit</button>
+          <button class="button-sm" onclick="Restaurant.controller.destroy('${restaurants[i]._id}')">Delete</button>
+          <button class="button-sm" onclick="Restaurant.controller.edit('${restaurants[i]._id}')">Edit</button>
         </li>`;
       }
       html += `</ul>`;
@@ -172,7 +172,7 @@ var Restaurant = {
 
         <button class="button" onclick="Restaurant.controller.create(addRestaurant)" type="button">Add</button>
         <button class="button" onclick="Restaurant.controller.index()" type="button">Cancel</button>
-
+      </form>
       `;
 
       return newHtml;
@@ -180,9 +180,7 @@ var Restaurant = {
 
     show: function(restaurant) {
       var html = `
-        <p class="header">Show Restaurant</h2>
-
-        <p><strong>Name:</strong> ${restaurant.name}</p>
+        <p class="header">${restaurant.name}</h2>
         <p><strong>Location:</strong> ${restaurant.location}</p>
         <p><strong>Cuisine Style:</strong> ${restaurant.cuisineStyle}</p>
 
@@ -194,20 +192,44 @@ var Restaurant = {
         html += `
           <li>
             <em>${restaurant.menu[i].name}<em>
-               (${restaurant.menu[i].course} &ndash; ${restaurant.menu[i].price})
+               (${restaurant.menu[i].course} &ndash; £${restaurant.menu[i].price})
           </li>
         `;
       }
       html += `
-        <h3 class="header2" >Add Food To MENU</h3>
-        <form name="addFood">
+      <h3 class="header2" >Add MENU Item</h3>
+      <form name="addFood">
+
+        <div>
+          <label class="header2" for="name">Food Name</label>
           <input type="text" name="name" placeholder="Food Name">
-          <input type="text" name="course" placeholder="Course">
-          <input type="text" name="price" placeholder="Price">
-          <input type="hidden" name="restaurantId" value="${restaurant._id}">
-          <button class="button" onclick="Food.controller.create(addFood)" type="button">Add</button>
+        </div>
+
+        <div>
+          <label class="header2" for="course">Course</label>
+          <select name="course">
+             <option selected disabled value="">Type</option>
+             <option value="Starter">Starter</option>
+             <option value="Main">Main</option>
+             <option value="Dessert">Dessert</option>
+             <option value="Drink">Drink</option>
+           </select>
+        </div>
+
+        <div>
+          <label class="header2" for="price">Price of Dish</label>
+          <input type="text" name="price" placeholder="0.00">
+        </div>
+
+        <input type="hidden" name="restaurantId" value="${restaurant._id}">
+
+        <div class="">
+          <button class="button float-right" onclick="Food.controller.create(addFood)" type="button">Add</button>
+          <button class="button" onclick="Restaurant.controller.index()" type="button">Back</button>
+        </div>
+
         </form>
-        <button class="button" onclick="Restaurant.controller.index()" type="button">Back</button>
+
       `;
       return html;
     }
