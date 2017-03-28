@@ -4,14 +4,14 @@
 
 body{
   width:100vw;
-  height:100vh;
-  border: 1px solid red;
+  min-height:100vh;
   display:flex;
   justify-content: center;
   align-items:center ;
-  overflow: hidden;
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
+  background-image: url("../black-mid-background.jpg");
 }
 
 .content{
@@ -20,15 +20,18 @@ body{
   padding:20px;
   border: 2px solid black;
   background-color: rgba(17, 15, 17, 0.9);
-  box-shadow: 0px 15px 8px -5px rgba(136,136,136,1);
+  box-shadow: 0px 8px 8px -5px rgba(136,136,136,1);
   border-radius: 20px;
   color: rgba(255, 255, 255, 0.79);
 }
 
 .header{
-  padding: 23px;
+  text-align: center;
+  padding: 11px;
   font-size: 30px;
+  font-weight: 600;
   color:rgb(106, 186, 246);
+  margin: 14px;
 }
 .header2{
   font-size: 18px;
@@ -37,11 +40,18 @@ body{
 
 .link{
   font-size: 20px;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
   list-style-type: none;
   color: rgb(214, 218, 211);
 }
+.link:hover{
+  text-shadow: 0 0 5px #00ffe8;
+}
+.link:active{
+  font-size: 25px;
+}
+
 .button-sm{
   padding:5px 7px ;
   font-size: 11px;
@@ -57,6 +67,7 @@ body{
     box-shadow: inset 0px 4px 6px 5px rgba(136,136,136,1);
 }
 .button{
+  margin-top: 15px;
   padding:15px;
   font-size: 13px;
   font-weight: 600;
@@ -71,17 +82,48 @@ body{
     box-shadow: inset 0px 4px 12px 5px rgba(136,136,136,1);
 }
 
+.border-menu{
+  padding-left: 50px;
+  margin-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: rgba(17, 15, 17, 0.89);
+  background-color: rgba(245, 220, 91, 0.78) ;
+  border: 5px solid rgba(214, 201, 147, 1) ;
+  border-radius: 15px;
+}
+.margin-food{
+  display: inline-block;
+  margin-right: 23px;
+}
+.margin-price{
+  display: inline-block;
+  margin-right: 15px;
+}
+.margin-select{
+  display: inline-block;
+  margin-right: 126px;
+}
+.text-align{
+  text-align: center;
+}
+span{
+  font-size: 17px;
+  font-weight: 600;
+  color: rgb(106, 186, 246);
+
+}
 div{
-  margin:15px;
+  margin:10px;
 }
 form{
   margin:10px;
 }
 ul{
-  margin: 40px;
+  margin: 20px;
 }
 li{
   list-style: none;
   text-indent: 15px;
-  margin: 15px ;
+  margin: 10px ;
 }

@@ -180,33 +180,34 @@ var Restaurant = {
 
     show: function(restaurant) {
       var html = `
-        <p class="header">${restaurant.name}</h2>
-        <p><strong>Location:</strong> ${restaurant.location}</p>
-        <p><strong>Cuisine Style:</strong> ${restaurant.cuisineStyle}</p>
+        <p class="header">${restaurant.name}</p>
+        <p class="text-align"><span>Location:</span> ${restaurant.location}</p>
+        <p class="text-align"><span>Cuisine Style:</span> ${restaurant.cuisineStyle}</p>
 
-        <p class="header"><strong>Menu:</strong></p>
-        <ul>
+        <p class="header">Menu: </p>
+        <ul class="border-menu">
       `;
 
       for (var i = 0; i < restaurant.menu.length; i++) {
         html += `
-          <li>
+          <li >
             <em>${restaurant.menu[i].name}<em>
                (${restaurant.menu[i].course} &ndash; £${restaurant.menu[i].price})
           </li>
         `;
       }
       html += `
-      <h3 class="header2" >Add MENU Item</h3>
+      </ul>
+      <p class="header2" >Add MENU Item</p>
       <form name="addFood">
 
         <div>
-          <label class="header2" for="name">Food Name</label>
+          <label class="header2 margin-food" for="name">Food Name</label>
           <input type="text" name="name" placeholder="Food Name">
         </div>
 
         <div>
-          <label class="header2" for="course">Course</label>
+          <label class="header2 margin-select" for="course">Course</label>
           <select name="course">
              <option selected disabled value="">Type</option>
              <option value="Starter">Starter</option>
@@ -217,7 +218,7 @@ var Restaurant = {
         </div>
 
         <div>
-          <label class="header2" for="price">Price of Dish</label>
+          <label class="header2 margin-price" for="price">Price of Dish</label>
           <input type="text" name="price" placeholder="0.00">
         </div>
 
