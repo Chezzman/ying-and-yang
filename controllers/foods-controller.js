@@ -25,9 +25,9 @@ function createFood(req, res) {
 
       restaurant.save(function (err) {
         if(err){
-          console.log('Could not create new book: error:');
+          console.log('Could not update restaurant with new food: error:');
         }
-        res.json({ message: 'Food successfully created'});
+        res.json({ message: 'Food successfully added to restaurant'});
       });
     });
 

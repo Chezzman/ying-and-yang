@@ -194,6 +194,7 @@ var Restaurant = {
           <input type="hidden" name="restaurantId" value="${restaurant._id}">
           <button onclick="Food.controller.create(addFood)" type="button">Add</button>
         </form>
+        <button onclick="Restaurant.controller.index()" type="button">Back</button>
       `;
       return html;
     }
