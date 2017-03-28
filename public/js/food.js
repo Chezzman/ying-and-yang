@@ -1,14 +1,27 @@
+/* global Restaurant */
+
 var Food = {
   controller: {
-    create: function () {
-      // TODO: implement
+    create: function (form) {
+      var newFood = {
+        name: form.name.value,
+        course: form.course.value,
+        price: form.price.value,
+        restaurantId: form.restaurantId.value
+      };
+
+      Food.model.create(
+        newFood,
+        function success() {
+          Restaurant.controller.show(form.restaurantId.value);
+        },
+        function error() {
+
+        }
+      );
     }
   },
-  view: {
-    new: function (foods) {
-      // TODO: implement
-    }
-  },
+
   model: {
 
     create: function (data, success, error) {

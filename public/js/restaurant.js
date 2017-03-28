@@ -1,3 +1,4 @@
+
 var Restaurant = {
   controller: {
     index: function () {
@@ -41,8 +42,18 @@ var Restaurant = {
 
     },
 
-    show: function () {
-      // TODO: implement
+    show: function (restaurantId) {
+      Restaurant.model.show(
+          restaurantId,
+          function success(data) {
+            var showHtml = Restaurant.view.show(data);
+
+            $('#content').html(showHtml);
+          },
+          function error(err) {
+            $('#error-message').html(err.responseJSON.message);
+          }
+        );
     },
     edit: function (restaurantId) {
       var $content = $('#content');
@@ -102,7 +113,7 @@ var Restaurant = {
       for(var i = 0; i < restaurants.length; i++) {
         html += `
         <li>
-          <a href="/${restaurants[i]._id}">${restaurants[i].name}</a>
+          <a href="#" onclick="Restaurant.controller.show('${restaurants[i]._id}')">${restaurants[i].name}</a>
           <button onclick="Restaurant.controller.destroy('${restaurants[i]._id}')">delete</button>
           <button onclick="Restaurant.controller.edit('${restaurants[i]._id}')">edit</button>
         </li>`;
@@ -146,14 +157,48 @@ var Restaurant = {
           <input type="text" name="name" placeholder="Restaurant Name">
           <input type="text" name="location" placeholder="Post Code">
           <input type="text" name="cuisineStyle" placeholder="Cuisine Style">
-          <input type="hidden" name="RestaurantId" value="<%=  %>">
           <button onclick="Restaurant.controller.create(addRestaurant)" type="button">Add</button>
           <button onclick="Restaurant.controller.index()" type="button">Cancel</button>
         </form>
       `;
 
       return newHtml;
+    },
+
+    show: function(restaurant) {
+      var html = `
+        <h2>Show Restaurant</h2>
+
+        <p><strong>Name:</strong> ${restaurant.name}</p>
+        <p><strong>Location:</strong> ${restaurant.location}</p>
+        <p><strong>Cuisine Style:</strong> ${restaurant.cuisineStyle}</p>
+
+        <p><strong>Menu:</strong></p>
+        <ul>
+      `;
+
+      for (var i = 0; i < restaurant.menu.length; i++) {
+        html += `
+          <li>
+            <em>${restaurant.menu[i].name}<em>
+               (${restaurant.menu[i].course} &ndash; ${restaurant.menu[i].price})
+          </li>
+        `;
+      }
+      html += `
+        <h3>Add Food</h3>
+        <form name="addFood">
+          <input type="text" name="name" placeholder="Food Name">
+          <input type="text" name="course" placeholder="Course">
+          <input type="text" name="price" placeholder="Price">
+          <input type="hidden" name="restaurantId" value="${restaurant._id}">
+          <button onclick="Food.controller.create(addFood)" type="button">Add</button>
+        </form>
+      `;
+      return html;
     }
+
+
 
   },
   model: {

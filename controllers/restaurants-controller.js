@@ -40,7 +40,7 @@ function updateRestaurant(req, res) {
 function showRestaurant(req, res) {
   var restaurantId = req.params.id;
 
-  Restaurant.findOne({ _id: restaurantId }).populate('foods').exec(
+  Restaurant.findOne({ _id: restaurantId }).populate('menu').exec(
     function (err, restaurant) {
       if (err) {
         console.log('Could not get restaurant:', err.message);
