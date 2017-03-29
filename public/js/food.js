@@ -15,8 +15,8 @@ var Food = {
         function success() {
           Restaurant.controller.show(form.restaurantId.value);
         },
-        function error() {
-
+        function error(err) {
+          $('#error-message').html(err.responseJSON.message);
         }
       );
     }

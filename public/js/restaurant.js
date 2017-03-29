@@ -7,7 +7,6 @@ var Restaurant = {
       Restaurant.model.index(
         function success(data) {
           var indexHtml = Restaurant.view.index(data);
-          // set the HTML in the content div
           $content.html(indexHtml);
         },
         function error(err) {
@@ -35,8 +34,8 @@ var Restaurant = {
         function success() {
           Restaurant.controller.index();
         },
-        function error() {
-
+        function error(err) {
+          $('#error-message').html(err.responseJSON.message);
         }
       );
 
@@ -62,12 +61,10 @@ var Restaurant = {
         restaurantId,
         function success(data) {
           var showHtml = Restaurant.view.edit(data);
-
-          // set the HTML in the content div
           $content.html(showHtml);
         },
-        function error() {
-          //$('#error-message').html(err.responseJSON.message);
+        function error(err) {
+          $('#error-message').html(err.responseJSON.message);
         }
       );
     },
@@ -85,21 +82,24 @@ var Restaurant = {
           Restaurant.controller.index();
         },
         function error(err) {
-          console.log('ERROR: err:', err);
-          //$('#error-message').html(err.responseJSON.message);
+          $('#error-message').html(err.responseJSON.message);
         }
       );
     },
     destroy: function (restaurantId) {
-      Restaurant.model.destroy(
-        restaurantId,
-        function success() {
-          Restaurant.controller.index();
-        },
-        function error(err) {
-          $('#error-message').html(err.responseJSON.message);
-        }
-      );
+      var answer = confirm('Are you sure you want to delete this restaurant?');
+
+      if(answer) {
+        Restaurant.model.destroy(
+          restaurantId,
+          function success() {
+            Restaurant.controller.index();
+          },
+          function error(err) {
+            $('#error-message').html(err.responseJSON.message);
+          }
+        );
+      }
     }
   },
 
@@ -124,7 +124,7 @@ var Restaurant = {
       return html;
     },
     edit: function (restaurant) {
-      return `
+      var html = `
         <h1 class="header">Edit restaurant</h1>
         <form name="editRestaurant">
           <input type="hidden" name="restaurantId" value="${restaurant._id}">
@@ -148,6 +148,8 @@ var Restaurant = {
           <button class="button" onclick="Restaurant.controller.index()" type="button">Cancel</button>
         </form>
       `;
+
+      return html;
     },
 
     new: function () {

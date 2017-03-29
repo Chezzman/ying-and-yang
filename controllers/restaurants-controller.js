@@ -7,12 +7,10 @@ function indexRestaurants(req, res) {
   Restaurant.find({}, function (err, restaurants) {
     if (err) {
       console.log('Could not get list of restaurants:', err.message);
-      // A little bit lazy, but not going to implement
-      // anything more complex at this point in time:
-      res.status(500).json({ message: 'Could not get list of restaurants' });
+      res.status(404).json({ message: 'Could not get list of restaurants' });
       return;
     }
-    res.json(restaurants);
+    res.status(200).json(restaurants);
   });
 }
 
@@ -28,7 +26,6 @@ function updateRestaurant(req, res) {
   Restaurant.findOneAndUpdate({ _id: restaurantId }, updatedRestaurant, function (err) {
     if (err) {
       console.log('Could not get existing restaurant to update:', err.message);
-      // ditto comment above re. keeping complexity to a minimum:
       res.status(404).json({ message: 'Could not get existing restaurant to update' });
       return;
     }
@@ -44,7 +41,6 @@ function showRestaurant(req, res) {
     function (err, restaurant) {
       if (err) {
         console.log('Could not get restaurant:', err.message);
-        // ditto comment above re. keeping complexity to a minimum:
         res.status(404).json({ message: 'Could not get restaurant' });
         return;
       }
@@ -65,7 +61,7 @@ function createRestaurant(req, res) {
       res.status(404).json({ message: 'Could not add restaurant'});
       return;
     }
-    res.json({ message: 'Restaurant successfully created'});
+    res.status(200).json({ message: 'Restaurant successfully created'});
   });
 }
 
@@ -75,7 +71,6 @@ function destroyRestaurant(req, res) {
 
   Restaurant.deleteOne({ _id: restaurantId }, function (err) {
     if (err) {
-      console.log('Could not get restaurant to delete:', err.message);
       res.status(404).json({ message: 'Could not get restaurant to delete' });
       return;
     }
